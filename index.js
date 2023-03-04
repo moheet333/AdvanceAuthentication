@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const encrypt = require("mongoose-encryption");
 const userModel = require("./models/UserSchema");
-const loginModel = require("./models/LoginSchema");
 const cors = require("cors");
 
 const app = express();
