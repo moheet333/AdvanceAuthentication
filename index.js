@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const encrypt = require("mongoose-encryption");
+const md5 = require("md5");
 const userModel = require("./models/UserSchema");
 const cors = require("cors");
 
@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB);
 app.post("/register", async function (req, res) {
   const username = req.body.username;
   const email = req.body.email;
-  const password = req.body.password;
+  const password = md5(req.body.password);
   const newUser = new userModel({
     username,
     email,
@@ -32,7 +32,7 @@ app.post("/register", async function (req, res) {
 
 app.post("/login", async function (req, res) {
   const identity = req.body.identity;
-  const password = req.body.password;
+  const password = md5(req.body.password);
 
   userModel
     .findOne({ email: identity })
